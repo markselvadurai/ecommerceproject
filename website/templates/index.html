@@ -1,0 +1,94 @@
+{% extends "template.html" %}
+
+{% block title %}Home Page{% endblock %}
+{% block top %}
+    <div class="marquee bgcolor scroll reverse">
+        <!-- <div class="marquee-content">
+            <div class="marquee-text">SALE</div>
+        </div> -->
+        <!-- <div class="marquee-content ">
+            <div class="marquee-text">SALE 50% OFF EVERYTHING</div>
+        </div> -->
+        <div class="marquee-content ">
+            <div class="marquee-text">SALE 50% OFF EVERYTHING</div>
+        </div>
+        <div class="marquee-content ">
+            <div class="marquee-text">SALE 50% OFF EVERYTHING</div>
+        </div>
+        <div class="marquee-content ">
+            <div class="marquee-text">SALE 50% OFF EVERYTHING</div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+<style>
+    .top-30 {
+        top: 30%;
+    }
+    .btn-custom {
+    border-radius: 0;
+    }   
+    .oranbtn {
+        background-color:rgb(248, 206, 129);
+    }
+    .fontmon {
+        font-family: monospace;
+    }
+    .resize {
+        height: 200px;
+        width: auto;
+        }
+</style>
+<div class="banner-image w-100 banner-size d-flex p-5">
+    <div class="position-relative content w-50 h-25 top-30">
+        <div class="py-3">
+            <h2 class="text-white fontmon">Mark's ecommerce shop</h2>
+        </div>
+        <div>
+            <p class="text-white fontmon">enjoy virtual clothing</p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary btn-custom oranbtn fontmon" style="--bs-btn-padding-y: .3rem; --bs-btn-padding-x: 2rem; --bs-btn-font-size: 1rem;">Check out</button>
+        </div>
+
+
+    </div>
+</div>
+
+<style>
+    .bgcolor {
+        background-color: #f5f2f0;
+    }
+</style>
+
+<!-- <div class="list-group m-5">
+    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+      <img src="../static/img/banner-img.jpg" alt="" srcset="" class="resize">
+      <button>here</button>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+    <a class="list-group-item list-group-item-action disabled" aria-disabled="true">A disabled link item</a>
+  </div> -->
+  <div class="list-group m-5">
+    {% for item in products %}
+    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+        
+      <div class="d-flex">
+        <img src = {{ item.imgurl }} alt="tshirt" srcset="" class="resize">
+        <div class="p-5">
+            <p>{{ item.desc }}</p>
+            <p >${{'%0.2f'|format(item.price) }}
+                <form method="POST">
+                    <button type="submit" name="itemid" value= {{ item.id }} style="margin-left: 1rem;"><img src = "../static/img/cart.svg"> Add to Cart</button>
+                </form>
+            </p>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+{% endblock %}

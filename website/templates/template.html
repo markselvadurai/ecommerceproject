@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} {% endblock %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <style>
+        .banner-image {
+            background-image: url("static/img/flowers.jpg");
+            background-size: cover;
+        }
+
+        .banner-size {
+            height: 70vh !important;
+        }
+
+        .nav-link:hover {
+            border-bottom: 2px solid white;
+            color: #000000;
+        }
+
+        .blacken a {
+            color: #000000;
+            /* Your desired text color */
+        }
+
+        .whiten a {
+            color: rgb(255, 255, 255);
+            /* Your desired text color */
+        }
+
+        .navbarsize {
+            height: 15vh;
+        }
+
+        .marquee{
+            max-width: 100vh;
+            grid-column-gap: 1rem;
+            /* margin-bottom: 1rem; */
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        .marquee-text {
+            color:rgb(104, 99, 86);
+            font-size: 1vw;
+            line-height: 1;
+        }
+
+        .scroll {
+            animation: scroll 20s linear infinite;
+        }
+
+        .marquee-content {
+            min-width: 20%;
+            grid-column-gap: 1rem;
+            flex: none;
+            justify-content: space-around;
+            display: flex;
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(calc(-100% - 1rem));
+            }
+        }
+        .reverse {
+            animation-direction: reverse;
+        }
+    </style>
+</head>
+<body class="bgcolor" style="overflow-x: hidden;">
+{% block top %} {% endblock %}
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-md-3 navbarsize">
+        <div class="container-fluid" id="back">
+            <!-- <a href="#" class="navbar-brand">gloope</a> -->
+            <button class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse"
+                aria-controls="navbarNav" aria-expanded="false" aria-lable="Toggle Navbar" id="dropbtn">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- <div class="mx-auto"></div> -->
+                <ul class="navbar-nav whiten" id="navbarlinks">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link">Logout</a>
+                    </li>
+
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="/login" class="nav-link">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/register" class="nav-link">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="fixed-bottom">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            {% if category == 'error' %}
+            <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                {{ message }}
+                <button id="closeAlertButton" type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% else %}
+            <div class="alert alert-success alter-dismissable fade show" role="alert">
+                {{ message }}
+                <button id="closeAlertButton" type="button" class="close" data-dismiss="alert" >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+    {% block body %}
+
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
+        </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        var nav = document.querySelector('nav');
+        var navlinks = document.getElementById('navbarlinks');
+        var back = document.getElementById('back');
+        var dropbtn = document.getElementById('dropbtn');
+        if(document.getElementById('closeAlertButton')) {
+            var closeAlertButton = document.getElementById('closeAlertButton');
+
+            closeAlertButton.addEventListener('click', function() {
+                closeAlertButton.parentElement.remove();
+            });
+        }
+       
+
+        dropbtn.addEventListener('click', function(){
+            back.classList.add('bgcolor');
+        });
+
+        window.addEventListener('scroll', function () {
+            if (window.pageYOffset > 50) {
+                nav.classList.add('bgcolor', 'shadow');
+
+                navlinks.classList.remove('whiten');
+                navlinks.classList.add('blacken');
+            }
+            else {
+                nav.classList.remove('bgcolor', 'shadow');
+                navlinks.classList.remove('blacken');
+                navlinks.classList.add('whiten');
+            }
+        });
+    </script>
+</body>
+
+</html>

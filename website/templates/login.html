@@ -1,0 +1,61 @@
+{% extends "template.html" %}
+
+{% block title %}Home Page{% endblock %}
+{% block top %}
+<style>
+    .nav-link {
+        color: black!important;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<style>
+    .vh-70 {
+        height: 70vh!important;
+    }
+    .vw-30 {
+        width: 30vw!important;
+    }
+    
+    html {
+        background-color: #f5f2f0;
+    }
+    .form-group {
+        padding-bottom: 4%;
+
+    }
+    .form-control {
+
+        border-radius: 0%;
+        background-color: #faf9f9;
+    }
+
+</style>
+
+<div class="container position-fixed top-50 start-50 translate-middle vh-70 vw-30 shadow-lg border border-warning " style="min-width:max-content;">
+    <div class="container-fluid py-3 " style="height:15% ">
+        <p class="text-center fs-4 fw-bolder font-monospace">Log in</p>
+    </div>
+    <div class="container-fluid py-3 " style="height:85%; overflow: auto;">
+        <form method = "POST">
+            <div class="form-group">
+                <input type="email" 
+                class="form-control" 
+                id="email" 
+                name="email" 
+                placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="password" 
+                class="form-control" 
+                id="password" 
+                name="password" 
+                placeholder="Password">
+            </div>
+            <br>
+            <button type="submit" class="btn border" style="background-color: rgb(233, 171, 127); border-radius: 0%; color: white;">Log in</button>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
